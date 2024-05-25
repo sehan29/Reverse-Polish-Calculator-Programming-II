@@ -1,6 +1,12 @@
 #include<stdio.h>
 
 
+typedef struct {
+    char notation[100];  // To store the Reverse Polish notation
+    char result[50];     // To store the result or error message
+} RPNRecord;
+
+
 void Development_Team()
 {
     char back_btn;
