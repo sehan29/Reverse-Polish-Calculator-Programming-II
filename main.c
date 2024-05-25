@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include "stack_header.h"
 
 int evaluatePostfix(char *expr,RPNRecord *record);
 
