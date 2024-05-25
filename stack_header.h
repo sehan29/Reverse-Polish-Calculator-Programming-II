@@ -32,3 +32,41 @@ Boolean IsStackEmpty(const Stack *s)
     }
 
 }
+
+// Checking is Stackfull
+Boolean IsStackFull(const Stack *s)
+{
+    if(s->top == MAXSTACK-1)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }  
+}
+
+// Inserting a New Value to Stack
+void Push(StackEntry item, Stack *s)
+{
+    if (IsStackFull(s))
+    {
+        printf("stack is full\n");
+        exit(1);
+    }
+
+    s->entry[++s->top] = item;  
+
+}
+
+// Removing last Inserted Value
+int Pop(Stack *s)
+{
+    if (IsStackEmpty(s))
+    {
+        printf("Stack is empty\n");
+        exit(1);
+    }
+    return s->entry[s->top--];
+
+}
