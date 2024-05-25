@@ -1,5 +1,7 @@
 #include<stdio.h>
 
+
+void Main_Selection();
 int evaluatePostfix(char *expr,RPNRecord *record);
 
 typedef struct {
@@ -186,6 +188,63 @@ main() {
     Development_Team();
 
     return 0;
+}
+
+void Main_Selection()
+{
+    int select_value;
+    int result;
+
+    printf("Select Your Preference - ");
+
+    // Attempt to read an integer
+    result = scanf("%d", &select_value);
+
+    while (result != 1) {
+        // Clear the input buffer
+        while (getchar() != '\n');
+        printf("Invalid input. Please enter a number: ");
+        result = scanf("%d", &select_value);
+
+    }
+    system("cls");
+    Header();
+
+   switch (select_value)
+   {
+    case 1:
+    
+        Insert_Reverse_Polish_Notation();
+        break;
+    
+    case 2:
+
+        DisplaySavedNotations();
+        break;
+
+    case 3:
+        Development_Team();
+        break;
+
+    case 4:
+        //system("cls");
+        InfixToPostfix();
+        break;
+
+    case 5:
+        system("cls");
+        Exit_Message();
+        exit(0); 
+        break;
+
+    default:
+        system("cls");
+        printf("\n\n\t\t\tPlease Enter The Valid Number\n\n");
+        Exit_Message();
+        exit(0);
+        break;
+   }
+   
 }
 
 
