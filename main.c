@@ -36,6 +36,59 @@ void Development_Team()
 }
 
 
+int precedence(char op) {
+    switch (op) {
+    case '+':
+    case '-':
+        return 1;
+    case '*':
+    case '/':
+        return 2;
+    default:
+        return 0;
+    }
+}
+
+
+void infixToPostfixConversion(char* infix, char* postfix) {
+    Stack s;
+    CreateStack(&s);
+    int j = 0;
+
+    for (int i = 0; infix[i] != '\0'; i++) {
+        if (isdigit(infix[i])) {
+            while (isdigit(infix[i])) {
+                postfix[j++] = infix[i++];
+            }
+            postfix[j++] = ' ';
+            i--;
+        } else if (infix[i] == '(') {
+            Push(infix[i], &s);
+        } else if (infix[i] == ')') {
+            while (!IsStackEmpty(&s) && s.entry[s.top] != '(') {
+                postfix[j++] = Pop(&s);
+                postfix[j++] = ' ';
+            }
+            Pop(&s); // Remove '(' from stack
+        } else {
+            while (!IsStackEmpty(&s) && precedence(infix[i]) <= precedence(s.entry[s.top])) {
+                postfix[j++] = Pop(&s);
+                postfix[j++] = ' ';
+            }
+            Push(infix[i], &s);
+        }
+    }
+
+    while (!IsStackEmpty(&s)) {
+        postfix[j++] = Pop(&s);
+        postfix[j++] = ' ';
+    }
+
+    postfix[j - 1] = '\0'; // Remove the last space and terminate the string
+}
+
+
+
 int evaluatePostfix(char *expr,RPNRecord *record) {
 
     Stack s;
