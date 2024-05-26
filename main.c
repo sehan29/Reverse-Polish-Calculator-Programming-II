@@ -6,6 +6,8 @@
 
 void Main_Selection();
 void Header();
+void Main_Body_content();
+void Footer();
 int evaluatePostfix(char *expr,RPNRecord *record);
 
 typedef struct {
@@ -294,6 +296,24 @@ void Header()
     printf("\t---------------------------------------------------------------------\t\t\n");
     printf("\t\t\t| WELCOME TO REVERCE POLISH CALCULATOR |\t\t\t\n");
     printf("\t---------------------------------------------------------------------\t\t\n\n");
+}
+
+void Main_Body_content()
+{
+    printf("1. Add New Reverse Polish Notation.\n");
+    printf("2. Display Calculated Notation.\n");
+    printf("3. About The Development Team.\n");
+    printf("4. Infix To Postfix\n");
+    printf("5. Exit.\n");
+    
+
+}
+
+void Footer()
+{
+    printf("-------------------------------------------------------------------------------------\n");
+    printf("\t\t 2024 All Right Reserved.Developed By Code Arrow\n");
+    printf("-------------------------------------------------------------------------------------\n");
 }
 
 void InfixToPostfix() {
