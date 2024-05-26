@@ -5,6 +5,7 @@
 
 
 void Main_Selection();
+void Header();
 int evaluatePostfix(char *expr,RPNRecord *record);
 
 typedef struct {
@@ -286,6 +287,13 @@ void DisplaySavedNotations() {
         Exit_Message();
         exit(0);
     }
+}
+
+void Header()
+{
+    printf("\t---------------------------------------------------------------------\t\t\n");
+    printf("\t\t\t| WELCOME TO REVERCE POLISH CALCULATOR |\t\t\t\n");
+    printf("\t---------------------------------------------------------------------\t\t\n\n");
 }
 
 void InfixToPostfix() {
