@@ -287,3 +287,57 @@ void DisplaySavedNotations() {
         exit(0);
     }
 }
+
+void InfixToPostfix() {
+    int c;
+    char back_btn;
+    char infix[100];
+    char postfix[100];
+    RPNRecord record;
+
+    printf("\t -- Enter Only Digits and ('/', '*', '-', '+') Operators in Here --\n\n");
+
+    printf("Enter Infix Expression - ");
+    while ((c = getchar()) != '\n' && c != EOF) { }
+    fgets(infix, 100, stdin);
+    infix[strcspn(infix, "\n")] = 0; // Remove newline character
+
+    infixToPostfixConversion(infix, postfix);
+    printf("Postfix Expression: %s\n", postfix);
+
+    int result = evaluatePostfix(postfix, &record);
+
+    printf("--------------------------------------------------------------------------\n");
+    printf("Result of Infix Expression = %d\n", result);
+    printf("--------------------------------------------------------------------------\n");
+
+    FILE *file = fopen("Reverse_Polish_Notation.txt", "a");  // Open the file in append mode
+    if (file != NULL) {
+        int notationWidth = 40;
+        int notationLength = strlen(record.notation);
+        int spaceCount = notationWidth - notationLength;
+
+        // Print notation and result, with notation padded to be 60 characters long
+        fprintf(file, "%s", record.notation);
+        for (int i = 0; i < spaceCount; i++) {
+            fputc(' ', file);  // Add spaces to pad the notation
+        }
+        fprintf(file, "%s\n", record.result);
+
+        fclose(file); 
+    } else {
+        printf("Failed to open file for writing.\n");
+    }
+
+    printf("\n<-- If You Want To Go Main Menu (Y/N) : ");
+    scanf("%s", &back_btn);
+
+    if (back_btn == 'Y' || back_btn == 'y') {
+        system("cls");
+        main();
+    } else {
+        system("cls");
+        main();
+        exit(0);
+    }
+}
