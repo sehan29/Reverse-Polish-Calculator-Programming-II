@@ -4,16 +4,20 @@
 #include "stack_header.h"
 
 
+
+typedef struct {
+    char notation[100];  // To store the Reverse Polish notation
+    char result[50];     // To store the result or error message
+} RPNRecord;
+
+
+
 void Main_Selection();
 void Header();
 void Main_Body_content();
 void Footer();
 int evaluatePostfix(char *expr,RPNRecord *record);
 
-typedef struct {
-    char notation[100];  // To store the Reverse Polish notation
-    char result[50];     // To store the result or error message
-} RPNRecord;
 
 
 
@@ -58,42 +62,6 @@ int precedence(char op) {
 }
 
 
-void infixToPostfixConversion(char* infix, char* postfix) {
-    Stack s;
-    CreateStack(&s);
-    int j = 0;
-
-    for (int i = 0; infix[i] != '\0'; i++) {
-        if (isdigit(infix[i])) {
-            while (isdigit(infix[i])) {
-                postfix[j++] = infix[i++];
-            }
-            postfix[j++] = ' ';
-            i--;
-        } else if (infix[i] == '(') {
-            Push(infix[i], &s);
-        } else if (infix[i] == ')') {
-            while (!IsStackEmpty(&s) && s.entry[s.top] != '(') {
-                postfix[j++] = Pop(&s);
-                postfix[j++] = ' ';
-            }
-            Pop(&s); // Remove '(' from stack
-        } else {
-            while (!IsStackEmpty(&s) && precedence(infix[i]) <= precedence(s.entry[s.top])) {
-                postfix[j++] = Pop(&s);
-                postfix[j++] = ' ';
-            }
-            Push(infix[i], &s);
-        }
-    }
-
-    while (!IsStackEmpty(&s)) {
-        postfix[j++] = Pop(&s);
-        postfix[j++] = ' ';
-    }
-
-    postfix[j - 1] = '\0'; // Remove the last space and terminate the string
-}
 
 
 
@@ -219,10 +187,10 @@ void Main_Selection()
    switch (select_value)
    {
     case 1:
-    
+
         Insert_Reverse_Polish_Notation();
         break;
-    
+
     case 2:
 
         DisplaySavedNotations();
@@ -240,7 +208,7 @@ void Main_Selection()
     case 5:
         system("cls");
         Exit_Message();
-        exit(0); 
+        exit(0);
         break;
 
     default:
@@ -250,7 +218,7 @@ void Main_Selection()
         exit(0);
         break;
    }
-   
+
 }
 
 
@@ -305,7 +273,7 @@ void Main_Body_content()
     printf("3. About The Development Team.\n");
     printf("4. Infix To Postfix\n");
     printf("5. Exit.\n");
-    
+
 
 }
 
@@ -315,6 +283,46 @@ void Footer()
     printf("\t\t 2024 All Right Reserved.Developed By Code Arrow\n");
     printf("-------------------------------------------------------------------------------------\n");
 }
+
+
+void infixToPostfixConversion(char* infix, char* postfix) {
+    Stack s;
+    CreateStack(&s);
+    int j = 0;
+
+    for (int i = 0; infix[i] != '\0'; i++) {
+        if (isdigit(infix[i])) {
+            while (isdigit(infix[i])) {
+                postfix[j++] = infix[i++];
+            }
+            postfix[j++] = ' ';
+            i--;
+        } else if (infix[i] == '(') {
+            Push(infix[i], &s);
+        } else if (infix[i] == ')') {
+            while (!IsStackEmpty(&s) && s.entry[s.top] != '(') {
+                postfix[j++] = Pop(&s);
+                postfix[j++] = ' ';
+            }
+            Pop(&s); // Remove '(' from stack
+        } else {
+            while (!IsStackEmpty(&s) && precedence(infix[i]) <= precedence(s.entry[s.top])) {
+                postfix[j++] = Pop(&s);
+                postfix[j++] = ' ';
+            }
+            Push(infix[i], &s);
+        }
+    }
+
+    while (!IsStackEmpty(&s)) {
+        postfix[j++] = Pop(&s);
+        postfix[j++] = ' ';
+    }
+
+    postfix[j - 1] = '\0'; // Remove the last space and terminate the string
+}
+
+
 
 void InfixToPostfix() {
     int c;
@@ -352,7 +360,7 @@ void InfixToPostfix() {
         }
         fprintf(file, "%s\n", record.result);
 
-        fclose(file); 
+        fclose(file);
     } else {
         printf("Failed to open file for writing.\n");
     }
