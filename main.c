@@ -11,13 +11,22 @@ typedef struct {
 } RPNRecord;
 
 
-
-void Main_Selection();
 void Header();
 void Main_Body_content();
 void Footer();
+void Insert_Reverse_Polish_Notation();
+void Main_Selection();
 int evaluatePostfix(char *expr,RPNRecord *record);
 
+
+
+int main() {
+    int c;
+    Header();
+    Development_Team();
+
+    return 0;
+}
 
 
 
@@ -48,6 +57,14 @@ void Development_Team()
 }
 
 
+void Header()
+{
+    printf("\t---------------------------------------------------------------------\t\t\n");
+    printf("\t\t\t| WELCOME TO REVERCE POLISH CALCULATOR |\t\t\t\n");
+    printf("\t---------------------------------------------------------------------\t\t\n\n");
+}
+
+
 int precedence(char op) {
     switch (op) {
     case '+':
@@ -62,6 +79,12 @@ int precedence(char op) {
 }
 
 
+void Footer()
+{
+    printf("-------------------------------------------------------------------------------------\n");
+    printf("\t\t 2024 All Right Reserved.Developed By Code Arrow\n");
+    printf("-------------------------------------------------------------------------------------\n");
+}
 
 
 
@@ -157,12 +180,7 @@ int evaluatePostfix(char *expr,RPNRecord *record) {
 
 
 
-main() {
 
-    Development_Team();
-
-    return 0;
-}
 
 void Main_Selection()
 {
