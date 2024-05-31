@@ -10,6 +10,116 @@ typedef struct {
     char result[50];     // To store the result or error message
 } RPNRecord;
 
+void Header();
+void Main_Body_content();
+void Footer();
+void Insert_Reverse_Polish_Notation();
+void DisplaySavedNotations();
+void Main_Selection();
+void Exit_Message();
+void Development_Team();
+int evaluatePostfix(char *expr,RPNRecord *record);
+void InfixToPostfix();
+void infixToPostfixConversion(char* infix, char* postfix);
+
+
+char simplification[50];
+
+int main(){
+
+    int c;
+    Header();
+    Main_Body_content();
+    Main_Selection(); 
+    return 0;
+}
+
+
+// Shehan
+void Main_Selection()
+{
+    int select_value;
+    int result;
+
+    printf("Select Your Preference - ");
+
+    // Attempt to read an integer
+    result = scanf("%d", &select_value);
+
+    while (result != 1) {
+        // Clear the input buffer
+        while (getchar() != '\n');
+        printf("Invalid input. Please enter a number: ");
+        result = scanf("%d", &select_value);
+
+    }
+    system("cls");
+    Header();
+
+   switch (select_value)
+   {
+    case 1:
+    
+        Insert_Reverse_Polish_Notation();
+        break;
+    
+    case 2:
+
+        DisplaySavedNotations();
+        break;
+
+    case 3:
+        Development_Team();
+        break;
+
+    case 4:
+        //system("cls");
+        InfixToPostfix();
+        break;
+
+    case 5:
+        system("cls");
+        Exit_Message();
+        exit(0); 
+        break;
+
+    default:
+        system("cls");
+        printf("\n\n\t\t\tPlease Enter The Valid Number\n\n");
+        Exit_Message();
+        exit(0);
+        break;
+   }
+   
+}
+// Shehan end
+
+
+void Header()
+{
+    printf("\t---------------------------------------------------------------------\t\t\n");
+    printf("\t\t\t| WELCOME TO REVERCE POLISH CALCULATOR |\t\t\t\n");
+    printf("\t---------------------------------------------------------------------\t\t\n\n");
+}
+
+void Main_Body_content()
+{
+    printf("1. Add New Reverse Polish Notation.\n");
+    printf("2. Display Calculated Notation.\n");
+    printf("3. About The Development Team.\n");
+    printf("4. Infix To Postfix\n");
+    printf("5. Exit.\n");
+    
+
+}
+
+void Footer()
+{
+    printf("-------------------------------------------------------------------------------------\n");
+    printf("\t\t 2024 All Right Reserved.Developed By Code Arrow\n");
+    printf("-------------------------------------------------------------------------------------\n");
+}
+
 
 <<<<<<< HEAD
 void Insert_Reverse_Polish_Notation()
