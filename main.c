@@ -178,26 +178,141 @@ void Insert_Reverse_Polish_Notation()
         exit(0);
     }
 }
-=======
-void Header();
-void Main_Body_content();
-void Footer();
-void Insert_Reverse_Polish_Notation();
-void Main_Selection();
-int evaluatePostfix(char *expr,RPNRecord *record);
+
+int evaluatePostfix(char *expr,RPNRecord *record) {
+
+    Stack s;
+    CreateStack(&s);
+    strcpy(record->notation, expr);
+    int i = 0;
+    while (expr[i] != '\0') {
+        if (isdigit(expr[i])) {
+            int operand = 0;
+            while (isdigit(expr[i])) {
+                operand = operand * 10 + (expr[i] - '0');
+                i++;
+            }
+            Push(operand, &s);
+        } else if (isspace(expr[i])) {
+            i++; // Skip spaces
+        } else {
+            if (IsStackEmpty(&s)) {
+
+                sprintf(record->result, "Invalid Expression: Not Enough Operands!");
+                printf("Invalid Expression: Not Enough Operands!\n");
+                return FALSE; // Return an error value
+            }
+            int val2 = Pop(&s);
 
 
+            if (IsStackEmpty(&s)) {
 
-int main() {
-    int c;
-    Header();
-    Development_Team();
+                sprintf(record->result, "Invalid Expression: Not Enough Operands!");
+                printf("Invalid Expression: Not Enough Operands!\n");
+                return FALSE; // Return an error value
+            }
 
-    return 0;
+            int val1 = Pop(&s);
+
+            switch (expr[i]) {
+                case '+':
+
+                    printf("Step: %d + %d = %d\n", val1, val2, val1 + val2);
+                    Push(val1 + val2, &s);
+                    break;
+                case '-':
+
+                    printf("Step: %d - %d = %d\n", val1, val2, val1 - val2);
+                    Push(val1 - val2, &s);
+                    break;
+                case '*':
+
+                    printf("Step: %d * %d = %d\n", val1, val2, val1 * val2);
+                    Push(val1 * val2, &s);
+                    break;
+                case '/':
+                    if (val2 == 0) {
+                        printf("Error: Division by zero!\n");
+                        return FALSE; // Return an error value
+                    }
+
+                    printf("Step: %d / %d = %d\n", val1, val2, val1 / val2);
+                    Push(val1 / val2, &s);
+                    break;
+                default:
+
+                    sprintf(record->result, "Invalid Expression: Not Enough Operands!");
+                    printf("Invalid operator: %c\n", expr[i]);
+                    return FALSE; // Return an error value
+            }
+            i++; // Move to the next character
+        }
+    }
+
+    if (IsStackEmpty(&s)) {
+        printf("Invalid expression: Not enough operands!\n");
+        return FALSE; // Return an error value
+    }
+
+    int result = Pop(&s);
+
+    if (!IsStackEmpty(&s)) {
+        printf("Invalid expression: Too many operands!\n");
+        return FALSE; // Return an error value
+    }
+
+
+    sprintf(record->result, "%d", result);
+
+    return result;
+
+}
+
+void Exit_Message()
+{
+    printf("\n-------------------------------------------------------------------\n");
+    printf("|\t\t\t-- GOOD BYE --  \t\t\t  |\n");
+    printf("-------------------------------------------------------------------");
+}
+
+void DisplaySavedNotations() {
+
+    char back_btn;
+    FILE *file = fopen("Reverse_Polish_Notation.txt", "r"); // Open the file for reading
+    if (file == NULL) {
+        printf("Unable to open file or file does not exist.\n");
+        return;
+    }
+
+    char line[200]; // Buffer to hold each line read from the file
+    printf("Saved Reverse Polish Notation and Result\n\n");
+    printf("-------------------------------------------------------------------\n");
+    printf("| REVERSE POLISH NOTATION \t | \t RESULT \t\t  |\n");
+    printf("-------------------------------------------------------------------\n");
+    while (fgets(line, sizeof(line), file) != NULL) {
+        printf("%s", line); // Print each line read from the file
+        printf("-------------------------------------------------------------------\n");
+    }
+
+    fclose(file); // Close the file after reading
+
+    printf("\n<-- If You Want To Go Back (Y/N) : ");
+    scanf("%s",&back_btn);
+
+    if(back_btn == 'Y' || back_btn == 'y')
+    {
+        system("cls");
+        main();
+    }
+    else
+    {
+        system("cls");
+        Exit_Message();
+        exit(0);
+    }
 }
 
 
->>>>>>> c6a01a3a0d8990a8cfdf4d42b62b81d35253ae34
 
 void Development_Team()
 {
@@ -414,42 +529,7 @@ void Main_Selection()
 }
 
 
-void DisplaySavedNotations() {
 
-    char back_btn;
-    FILE *file = fopen("Reverse_Polish_Notation.txt", "r"); // Open the file for reading
-    if (file == NULL) {
-        printf("Unable to open file or file does not exist.\n");
-        return;
-    }
-
-    char line[200]; // Buffer to hold each line read from the file
-    printf("Saved Reverse Polish Notation and Result\n\n");
-    printf("-------------------------------------------------------------------\n");
-    printf("| REVERSE POLISH NOTATION \t | \t RESULT \t\t  |\n");
-    printf("-------------------------------------------------------------------\n");
-    while (fgets(line, sizeof(line), file) != NULL) {
-        printf("%s", line); // Print each line read from the file
-        printf("-------------------------------------------------------------------\n");
-    }
-
-    fclose(file); // Close the file after reading
-
-    printf("\n<-- If You Want To Go Back (Y/N) : ");
-    scanf("%s",&back_btn);
-
-    if(back_btn == 'Y' || back_btn == 'y')
-    {
-        system("cls");
-        main();
-    }
-    else
-    {
-        system("cls");
-        Exit_Message();
-        exit(0);
-    }
-}
 
 void Header()
 {
