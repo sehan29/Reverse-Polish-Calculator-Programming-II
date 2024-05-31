@@ -402,7 +402,12 @@ int evaluatePostfix(char *expr,RPNRecord *record) {
 
 }
 
-
+void Exit_Message()
+{
+    printf("\n-------------------------------------------------------------------\n");
+    printf("|\t\t\t-- GOOD BYE --  \t\t\t  |\n");
+    printf("-------------------------------------------------------------------");
+}
 
 
 
